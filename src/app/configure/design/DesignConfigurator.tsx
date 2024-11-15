@@ -247,8 +247,8 @@ const DesignConfigurator = ({
                                         <Radio
                                         key={color.label}
                                         value={ color }
-                                        className={({ active , checked}) => cn("relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0 active:outline-none focus:outline-none border-2 border-transparent", {
-                                            [`border-${color.tw}`]: active || checked,
+                                        className={({ checked}) => cn("relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0  focus:outline-none border-2 border-transparent", {
+                                            [`border-${color.tw}`]: checked,
                                         })}>
                                         
                                         <span 
@@ -317,19 +317,19 @@ const DesignConfigurator = ({
                                             <Radio
                                             key={option.value}
                                             value={option}
-                                            className={({ active , checked}) => 
+                                            className={({ checked}) => 
                                                 cn('relative block cursor-pointer rounded-lg bg-white px-6 py-4 shadow-sm border-2 border-zinc-200 focus:outline-none ring-0 focus:ring-0 outline-none sm:flex sm:justify-between',
-                                                    {'border-primary': active || checked ,}
+                                                    {'border-primary': checked ,}
                                                 )
                                             }
                                             >
                                                <span className="flex items-center">
                                                 <span className="flex flex-col text-sm">
-                                                    <Label as= 'span'
+                                                    <span
                                                     className="font-medium text-gray-900 " 
                                                     >
                                                     {option.label}
-                                                    </Label>
+                                                    </span>
 
                                                     {option.description? (
                                                         <Description 

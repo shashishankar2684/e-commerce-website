@@ -1,7 +1,7 @@
 'use client'
 
 import { Progress } from "@/components/ui/progress"
-import { toast, useToast } from "@/hooks/use-toast"
+import { toast, useToast } from '@/components/ui/use-toast'
 import { useUploadThing } from "@/lib/uploadthing"
 import { cn } from "@/lib/utils"
 import { Image, Loader2, MousePointerSquareDashed, Upload } from "lucide-react"

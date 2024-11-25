@@ -17,7 +17,7 @@ import { ArrowRight, Check, ChevronsUpDown } from "lucide-react";
 import { BASE_PRICE } from "@/config/product";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUploadThing } from "@/lib/uploadthing";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { saveConfig as _saveConfig, SaveConfigArgs } from "./action";
 import { useRouter } from "next/navigation";

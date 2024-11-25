@@ -124,7 +124,7 @@ const Page = async () => {
                                             {order.user.email}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="hidden sm:table-cell"><StatusDropdown id={order.id} OrderStatus={order.status}/></TableCell>
+                                    <TableCell className="hidden sm:table-cell"><StatusDropdown id={order.id}  orderStatus={order.status}/></TableCell>
                                     <TableCell className="hidden md:table-cell">{order.createdAt.toLocaleDateString()}</TableCell>
                                     <TableCell className="text-right">{formatPrice(order.amount)}</TableCell>
                                 </TableRow>

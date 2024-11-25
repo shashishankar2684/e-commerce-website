@@ -10,7 +10,7 @@ import { changeOrderStatus } from "./action";
 import { useRouter } from "next/navigation";
 
 
-const LABEL_MAP: Record<keyof typeof OrderStatus, string > = {
+const LABEL_MAP : Record<keyof typeof OrderStatus, string > = {
     awaiting_shipment: 'Awaiting Shipment',
     fulfilled: 'Fulfilled',
     shipped: 'Shipped',
@@ -18,10 +18,10 @@ const LABEL_MAP: Record<keyof typeof OrderStatus, string > = {
 
 const StatusDropdown = ({
      id,
-     OrderStatus,
+     orderStatus,
     } : { 
        id: string  
-       OrderStatus: OrderStatus
+       orderStatus: OrderStatus
     }) => {
 
         const router = useRouter()
@@ -31,14 +31,14 @@ const StatusDropdown = ({
             mutationFn: changeOrderStatus,
             onSuccess: () => router.refresh(),
         })
-
+ 
         return(
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button
                      variant='outline'
                      className="w-52 flex justify-between items-center">
-                        {LABEL_MAP[OrderStatus]}
+                        {LABEL_MAP[orderStatus]}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
                     </Button>
                 </DropdownMenuTrigger>
@@ -46,13 +46,15 @@ const StatusDropdown = ({
                     {Object.keys(OrderStatus).map((status) =>(
                         <DropdownMenuItem 
                           key={status}
-                          className={cn('flex text-sm gap-1 items-center p-2.5 cursor-default hover:bg-zinc-100',
-                            {'bg-zinc-100': OrderStatus === status ,}
+                          className={cn(
+                            'flex text-sm gap-1 items-center p-2.5 cursor-default hover:bg-zinc-100',
+                            {'bg-zinc-100': orderStatus === status ,}
                           )}
                              onClick={() => mutate({ id, newStatus: status as OrderStatus})}>
                             <Check 
-                            className={cn('mr-2 h-4 w-4 text-primary', 
-                            OrderStatus === status ? 'opacity-100':'opacity-0'
+                            className={cn(
+                                'mr-2 h-4 w-4 text-primary', 
+                            orderStatus === status ? 'opacity-100':'opacity-0'
                             )}/>
                             {LABEL_MAP[status as OrderStatus]}
                           </DropdownMenuItem>

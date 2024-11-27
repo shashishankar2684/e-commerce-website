@@ -8,21 +8,21 @@ import { COLORS, MODELS } from '@/validators/option-validator'
 import { Configuration } from '@prisma/client'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowRight, Check } from 'lucide-react'
-import { SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Confetti from 'react-dom-confetti'
 import { createCheckoutSession } from './action'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import { LoginModal } from '@/components/LoginModal'
-
+import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/types'
 
  
-const DesignPreview = ({configuration}: {configuration: Configuration}) => {
+const DesignPreview = ({configuration, user }: {configuration: Configuration, user:KindeUser | null }) => {
     const router = useRouter()
     const { toast } = useToast()
     const { id } = configuration
-    const { user } = useKindeBrowserClient()
+    // const { user } = useKindeBrowserClient()
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
 
 
@@ -60,7 +60,7 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
     const handleCheckout = () => {
         if (user) {
             // create payment session
-            createPaymentSession({ configId: id })
+            createPaymentSession({ configId: id , user })
         } else {
             // need to log in
             localStorage.setItem('configurationId', id )
@@ -117,6 +117,7 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
                         </ol>
                     </div>
                 </div>
+                
                 <div className='mt-8'>
                     <div className='bg-gray-50 p-6 sm:rounded-lg sm:p-8'>
                         <div className='flow-root text-sm'>
@@ -124,6 +125,7 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
                                 <p className='text-gray-600 '> Base price </p>
                                 <p className='font-medium text-gray-900 '>{formatPrice(BASE_PRICE / 100)}</p>
                             </div>
+
                             {finish === 'textured' ? (
                                <div className='flex items-center justify-between py-1 mt-2 '>
                                <p className='text-gray-600 '> Textured finish </p>
@@ -143,6 +145,7 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
                             ) : null }
 
                             <div  className='my-2 h-px bg-gray-200'/>
+
                             <div className='flex items-center justify-between py-2'>
                                 <p className='font-semibold text-gray-900 '> Order total </p>
                                 <p className='font-semibold text-gray-900'>
@@ -153,14 +156,12 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
                     </div>
 
                     <div className='mt-8 flex justify-end pb-12'>
-                        <Button 
-                        // disabled={true} isLoading={true} loadingText='loading' 
+                        <Button  
                         onClick={() => handleCheckout()}
                         className='px-4 sm:px-6 lg:px-8'>
                           Check out <ArrowRight className='h-4 w-4 ml-1.5 inline'/>  
                         </Button>
                     </div>
-
                 </div>
             </div>
         </div>
